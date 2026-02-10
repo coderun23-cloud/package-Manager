@@ -1,0 +1,22 @@
+---
+- name: Upgrade MySQL server
+  hosts: vm
+  become: yes
+
+  tasks:
+
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+
+    - name: Upgrade MySQL to latest version
+      apt:
+        name: mysql-server
+        state: latest
+
+    - name: Verify MySQL version
+      command: mysql --version
+      register: mysql_ver
+
+    - debug:
+        var: mysql_ver.stdout
