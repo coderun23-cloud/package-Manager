@@ -1,23 +1,13 @@
 ---
-- name: Simple Ansible Demo
+- name: Install MySQL on Ubuntu
   hosts: vm
   become: yes
   tasks:
-    - name: Create demo directory
-      file:
-        path: /home/netadmin/demo_folder
-        state: directory
-      # No become needed here if netadmin owns their home folder
+    - name: Update apt cache
+      apt:
+        update_cache: yes
 
-    - name: Install MYSQL
-      become: yes
-      package:
+    - name: Install MySQL server
+      apt:
         name: mysql-server
         state: present
-
-    - name: Start Mysql
-      become: yes
-      service:
-        name: mysql
-        state: started
-        enabled: yes
