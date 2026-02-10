@@ -1,9 +1,13 @@
-- hosts: vm
+- hosts: vm1
   become: yes
-  tasks:
-    - name: Who am I
-      command: whoami
-      register: result
+  become_method: sudo
 
-    - debug:
-        var: result.stdout
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+
+    - name: Install MySQL
+      apt:
+        name: mysql-server
+        state: present
