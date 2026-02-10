@@ -1,13 +1,9 @@
----
-- name: Install MySQL on Ubuntu
-  hosts: vm
+- hosts: vm
   become: yes
   tasks:
-    - name: Update apt cache
-      apt:
-        update_cache: yes
+    - name: Who am I
+      command: whoami
+      register: result
 
-    - name: Install MySQL server
-      apt:
-        name: mysql-server
-        state: present
+    - debug:
+        var: result.stdout
