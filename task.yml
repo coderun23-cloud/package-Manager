@@ -1,7 +1,7 @@
 ---
 - name: Simple Ansible Demo
   hosts: vm
-
+  become: yes
   tasks:
     - name: Create demo directory
       file:
