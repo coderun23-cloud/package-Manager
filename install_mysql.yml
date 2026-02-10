@@ -1,20 +1,13 @@
----
-- name: Install specific MySQL version
-  hosts: vm
+- hosts: vm1
   become: yes
+  become_method: sudo
 
   tasks:
-     - name: Update apt cache
+    - name: Update apt cache
       apt:
         update_cache: yes
-    - name: Install MySQL version 8.0.44
+
+    - name: Install MySQL
       apt:
         name: mysql-server
         state: present
-
-    - name: Show MySQL version
-      command: mysql --version
-      register: mysql_version
-
-    - debug:
-        var: mysql_version.stdout
