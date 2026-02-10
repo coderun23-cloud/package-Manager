@@ -1,5 +1,5 @@
 ---
-- name: Upgrade MySQL server
+- name: Full system update and MySQL check
   hosts: vm
   become: yes
 
@@ -9,12 +9,20 @@
       apt:
         update_cache: yes
 
-    - name: Upgrade MySQL to latest version
+    - name: Upgrade all packages
+      apt:
+        upgrade: dist
+
+    - name: Ensure MySQL is latest
       apt:
         name: mysql-server
         state: latest
 
-    - name: Verify MySQL version
+    - name: Remove unused packages
+      apt:
+        autoremove: yes
+
+    - name: Check MySQL version
       command: mysql --version
       register: mysql_ver
 
