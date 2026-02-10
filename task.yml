@@ -1,7 +1,7 @@
 ---
 - name: Simple Ansible Demo
   hosts: vm
-  become: yes   # optional: makes all tasks use sudo
+
 
   tasks:
 
@@ -11,8 +11,8 @@
         state: directory
 
     - name: Install MYSQL
-      apt:
-        name: mysql-server=8.0.45-0ubuntu0.24.04.1
+      package:
+        name: mysql-server
         state: present
 
     - name: Start Mysql
@@ -20,3 +20,4 @@
         name: mysql
         state: started
         enabled: yes
+
