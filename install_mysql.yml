@@ -1,0 +1,13 @@
+- hosts: vm1
+  become: yes
+  become_method: sudo
+
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+
+    - name: Install MySQL
+      apt:
+        name: mysql-server
+        state: present
