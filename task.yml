@@ -1,0 +1,22 @@
+---
+- name: Simple Ansible Demo
+  hosts: vm
+  become: yes
+
+  tasks:
+
+    - name: Create demo directory
+      file:
+        path: /home/netadmin/demo_folder
+        state: directory
+
+    - name: Install MYSQL
+      package:
+        name: mysql-server
+        state: present
+
+    - name: Start Mysql
+      service:
+        name: mysql
+        state: started
+        enabled: yes
