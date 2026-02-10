@@ -1,13 +1,26 @@
-- hosts: vm1
+---
+- name: Uninstall MySQL Completely
+  hosts: vm
   become: yes
-  become_method: sudo
 
   tasks:
-    - name: Update apt cache
-      apt:
-        update_cache: yes
+    - name: Stop MySQL service
+      service:
+        name: mysql
+        state: stopped
+      ignore_errors: yes
 
-    - name: Install MySQL
+    - name: Remove MySQL packages and configs
       apt:
-        name: mysql-server
-        state: present
+        name: 
+          - mysql-server
+          - mysql-client
+          - mysql-common
+        state: absent
+        purge: yes
+        autoremove: yes
+
+    - name: Remove MySQL data directory
+      file:
+        path: /var/lib/mysql
+        state: absent
